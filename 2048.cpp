@@ -241,22 +241,34 @@ bool check(int arr[4][4],int board[4][4]){
 
 //board when you lose
 bool lost(int board[4][4]){
-	int flag1=0,flag2=0;
-	int i,j;
-	for(i=0;i<4;i++)
-    	for(j=0;j<4;j++)
-    		if(board[i][j]==0){
-    			flag1=1;
-				break;
+	for(int i=0;i<4;i++){
+		for(int j=0;j<4;j++){
+			if (board[i][j]==0){
+				return false;
 			}
-	for(i=0;i<3;i++)
-    	for(j=0;j<3;j++)
-    		if(board[i+1][j]==board[i][j] || board[i][j+1]==board[i][j]){
-    			flag2=1;
-    			break;
-			}
-	if(flag1 || flag2)
+		}
+	}
+	int newb[4][4];
+	for(int i=0;i<4;i++)
+		for(int j=0;j<4;j++)
+			newb[i][j]=board[i][j];
+	int sc=0;
+	sc+=right(newb,sc);
+	if(sc!=0){
 		return false;
+	}
+	sc+=up(newb,sc);
+	if(sc!=0){
+		return false;
+	}
+	sc+=down(newb,sc);
+	if(sc!=0){
+		return false;
+	}
+	sc+=left(newb,sc);
+	if(sc!=0){
+		return false;
+	}
 	return true;
 }
 
